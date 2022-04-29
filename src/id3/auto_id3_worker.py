@@ -9,7 +9,8 @@ class AutoID3Worker:
     """AutoID3 worker that reads from a shared queue and process
     a track by doing Shazam recognition and ID3 tag filling. 
     """
-
+    RECOGNITION_ATTEMPTS = 5
+    
     def __init__(self, mp3_queue):
         """Constructor.
 
@@ -45,7 +46,16 @@ class AutoID3Worker:
             self._mp3_queue.task_done()
 
     async def _recognize_song(self, mp3_file):
-        for _ in range(5):
+        """Attempts to recognize the track using Shazam up to RECOGNITION_ATTEMPTS
+        tries to accomodate cases where the connection to Shazam might fail or error out.
+
+        Args:
+            mp3_file (str): Path to the mp3 track file.
+
+        Returns:
+            dict: The Shazam recognition of the track.
+        """
+        for _ in range(self.RECOGNITION_ATTEMPTS):
             try:
                 return await asyncio.wait_for(self._shazam_client.recognize_song(mp3_file), 120)
             except (ConnectionResetError, ClientConnectorError, asyncio.TimeoutError):
