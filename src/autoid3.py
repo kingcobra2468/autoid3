@@ -42,7 +42,7 @@ async def main(dirs, workers):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='AutoID3. MP3 metadata population made easy.')
     parser.add_argument('-d', '--directory', required=True, action='append', help='mp3 source directory', default=[])
-    parser.add_argument('-w', '--workers', help='number of workers', default=NUM_WORKERS)
+    parser.add_argument('-w', '--workers', help='number of workers', default=NUM_WORKERS, type=int)
     args = parser.parse_args()
     
     asyncio.run(main(args.directory, args.workers))
