@@ -16,5 +16,7 @@ Example: `python3 autoid3.py -d ~/Music -w 5`
 ## Installation
 To install AutoID3, follow these steps:
 1. Ensure Python3.7 in on the system.
-2. Install dependencies with `pip3 install -r requirements.txt.
-3. AutoID3 is now usable as explained [here](#usage).
+2. Install ffmpeg and ffprobe [binaries](https://ffbinaries.com/downloads)
+   are installed on the system and are found in `$PATH`. 
+3. Install dependencies with `pip3 install -r requirements.txt.
+4. AutoID3 is now usable as explained [here](#usage).
