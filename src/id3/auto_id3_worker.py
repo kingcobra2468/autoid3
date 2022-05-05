@@ -11,7 +11,7 @@ class AutoID3Worker:
     """
     RECOGNITION_ATTEMPTS = 5
     
-    def __init__(self, mp3_queue):
+    def __init__(self, mp3_queue, processed_mp3s_bar):
         """Constructor.
 
         Args:
@@ -19,6 +19,7 @@ class AutoID3Worker:
             paths.
         """
         self._mp3_queue = mp3_queue
+        self._processed_mp3s_bar = processed_mp3s_bar
         self._shazam_client = Shazam()
 
     async def process_track(self):
@@ -32,22 +33,23 @@ class AutoID3Worker:
             except asyncio.QueueEmpty:
                 break
 
-            print(mp3_file, self._mp3_queue.qsize())
+            # print(mp3_file, self._mp3_queue.qsize())
 
             metadata = await self._recognize_song(mp3_file)
             if not metadata:
-                print(f'NO rec {mp3_file}')
                 self._mp3_queue.task_done()
                 continue
 
             parser = ShazamParser(metadata, mp3_file)
             parser.populate_id3_tags()
-
+            
+            self._processed_mp3s_bar.update(1)
+            
             self._mp3_queue.task_done()
 
     async def _recognize_song(self, mp3_file):
         """Attempts to recognize the track using Shazam up to RECOGNITION_ATTEMPTS
-        tries to accomodate cases where the connection to Shazam might fail or error out.
+        tries to accommodate cases where the connection to Shazam might fail or error out.
 
         Args:
             mp3_file (str): Path to the mp3 track file.
