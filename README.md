@@ -20,3 +20,15 @@ To install AutoID3, follow these steps:
    are installed on the system and are found in `$PATH`. 
 3. Install dependencies with `pip3 install -r requirements.txt.
 4. AutoID3 is now usable as explained [here](#usage).
+
+## Using AutoID3 Library
+AutoID3 can also be utilized as a package in other projects. Simply
+install it with: 
+```
+pip3 install git+https://github.com/kingcobra2468/AutoID3.git
+```
+Post installation, AutoID3 can be imported as `autoid3`.
+
+### Documentation
+Extensive documentation can be found as docstrings throughout
+the project.
