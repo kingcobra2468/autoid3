@@ -2,7 +2,7 @@ import asyncio
 
 from aiohttp.client_exceptions import ClientConnectorError
 from shazamio import Shazam
-from id3.shazam_parser import ShazamParser
+from autoid3.shazam_parser import ShazamParser
 
 
 class AutoID3Worker:

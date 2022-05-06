@@ -5,7 +5,7 @@ import argparse
 
 from tqdm import tqdm
 
-from id3.auto_id3_worker import AutoID3Worker
+from autoid3.auto_id3_worker import AutoID3Worker
 
 getLogger().setLevel('ERROR')
 
