@@ -63,9 +63,9 @@ class AutoID3Worker:
         """
         for _ in range(self.RECOGNITION_ATTEMPTS):
             try:
-                return await asyncio.wait_for(self._shazam_client.recognize_song(mp3_file), 120)
+                return await asyncio.wait_for(self._shazam_client.recognize(str(mp3_file)), 60)
             except (ConnectionResetError, ClientConnectorError, asyncio.TimeoutError):
-                await asyncio.sleep(10)
+                await asyncio.sleep(5)
                 continue
 
         return None
